@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>XSS Vulnerable Page</title>
+    <script type="text/javascript">
+        function displayMessage() {
+            var userInput = new URLSearchParams(window.location.search).get('message');
+            if (userInput) {
+                // Vulnerable line: Directly inserting unsanitized user input into the DOM
+                document.getElementById('displayArea').innerHTML = '<h2>Your Message:</h2>' + userInput;
+            }
+        }
+    </script>
+</head>
+<body onload="displayMessage()">
+    <h1>Welcome!</h1>
+    <div id="displayArea">
+        <!-- Message will be displayed here -->
+    </div>
+</body>
+</html>
